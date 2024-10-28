@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"
+      integrity="sha512-DdX/YwF5e41Ok+AI81HI8f5/5UsoxCVT9GKYZRIzpLxb8Twz4ZwPPX+jQMwMhNQ9b5+zDEefc+dcvQoPWGNZ3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="!isLoading" class="container">
+        <div class="table">
+          <div class="row header">
+            <div>Турнир</div>
+            <div>Команды</div>
+            <div>П1</div>
+            <div>П2</div>
+            <div>ТМ</div>
+            <div>ТБ</div>
+            <div>Дата</div>
+          </div>
+
+          <div v-for="item in results" class="row">
+            <div>{{ item.competitionName }}</div>
+            <div>{{ item.name }}</div>
+
+            <div>
+              <div>{{ item.results.p?.kef1 || "X" }}</div>
+              <div>{{ item.results.p?.sum1 || "X" }}</div>
+              <div>{{ item.results.p?.result1 || "X" }}</div>
+            </div>
+
+            <div>
+              <div>{{ item.results.p?.kef2|| "X" }}</div>
+              <div>{{ item.results.p?.sum2|| "X" }}</div>
+              <div>{{ item.results.p?.result2|| "X" }}</div>
+            </div>
+
+            <div>
+              <div>{{ item.results.t?.kef1 || "X"}}</div>
+              <div>{{ item.results.t?.sum1|| "X" }}</div>
+              <div>{{ item.results.t?.result1|| "X" }}</div>
+            </div>
+
+            <div>
+              <div>{{ item.results.t?.kef2|| "X" }}</div>
+              <div>{{ item.results.t?.sum2|| "X" }}</div>
+              <div>{{ item.results.t?.result2 || "X"}}</div>
+            </div>
+
+            <div>{{ item.date }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="isLoading">
+        <h1>Loading...</h1>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    const { createApp, ref, onMounted } = Vue;
+    const HUITA_1 =
+      "https://www.olimp.bet/api/v4/0/line/sports-with-categories-with-competitions?vids%5B%5D=";
+
+    createApp({
+      setup() {
+        const message = ref("Hello vue!");
+        const results = ref([]);
+        const isLoading = ref(true);
+
+        onMounted(async () => {
+          const data = await getData();
+
+          results.value = data.map((item) => ({
+            ...item,
+            date: new Date(item.date).toLocaleDateString(),
+          }));
+          isLoading.value = false;
+
+          console.log([...results.value]);
+        });
+
+        return {
+          message,
+          results,
+          isLoading,
+        };
+      },
+    }).mount("#app");
+
+    function calc(kef1, kef2, left, right, target = 23700) {
+      if (kef1 == 0 || kef2 == 0) {
+        return;
+      }
+
+      if (kef1 > 2 || kef2 > 2) {
+        return;
+      }
+
+      if (kef1 > kef2) {
+        [kef2, kef1] = [kef1, kef2];
+      }
+
+      let sum1 = target / kef1;
+      let sum2 = (target + 10500) / kef2;
+
+      while (sum1 + sum2 > 30500) {
+        sum1 = target / kef1;
+        sum2 = (target + 10500) / kef2;
+        target -= 1;
+      }
+
+      const result1 = Math.round(sum1 * kef1);
+      const result2 = Math.round(sum2 * kef2 - 10500);
+
+      if (result1 < 23250) {
+        return false;
+      }
+
+      if (kef2 > kef1) {
+        console.log(kef1, kef2);
+
+        return {
+          sum1: Math.round(sum2),
+          sum2: Math.round(sum1),
+          result1: result2,
+          result2: result1,
+          left: right,
+          right: left,
+          kef1: kef2,
+          kef2: kef1,
+        };
+      }
+
+      return {
+        sum1: Math.round(sum1),
+        sum2: Math.round(sum2),
+        result1,
+        result2,
+        left,
+        right,
+        kef1,
+        kef2,
+      };
+
+      console.log(left + " - " + right + ":");
+      console.log(
+        `Ставка на ${left} ${Math.round(sum1)} рублей | Ставка на ${right}: ${
+          Math.round(sum2) - 10500
+        } рублей + 10500 фрибет`
+      );
+      console.log(
+        `Вывод ставки на ${left}: ${Math.round(
+          sum1 * kef1
+        )} рублей | Вывод ставки на ${right}: ${Math.round(
+          sum2 * kef2 - 10500
+        )} рублей`
+      );
+
+      return true;
+    }
+
+    async function getData() {
+      const { data } = await axios.get(HUITA_1);
+
+      const result = [];
+
+      let a = null;
+
+      data.forEach(({ payload }) => {
+        const asd = payload.categoriesWithCompetitions.find(
+          ({ name }) => name === "CS2"
+        );
+
+        if (asd) {
+          a = asd;
+        }
+      });
+
+      const ids = a?.competitions.map(({ id }) => id) || [];
+
+      const promises = await Promise.all(
+        ids.map(async (id) => {
+          const a = `https://www.olimp.bet/api/v4/0/line/competitions-with-events?vids%5B%5D=${id}%3A`;
+          return axios.get(a);
+        })
+      );
+
+      for await (const promise of promises) {
+        const { data } = await promise;
+
+        data.forEach(({ payload }) => {
+          payload.events.forEach(({ outcomes, competitionName, name }) => {
+            const P1 = Number(
+              outcomes.find(({ shortName }) => shortName === "П1")
+                ?.probability || 0
+            );
+            const P2 = Number(
+              outcomes.find(({ shortName }) => shortName === "П2")
+                ?.probability || 0
+            );
+            const TotM = Number(
+              outcomes.find(({ shortName }) => shortName === "ТотМ")
+                ?.probability || 0
+            );
+            const TotB = Number(
+              outcomes.find(({ shortName }) => shortName === "ТотБ")
+                ?.probability || 0
+            );
+
+            const results = {
+              p: calc(P1, P2, "P1", "P2") || null,
+              t: calc(TotM, TotB, "TotM", "TotB") || null,
+            };
+
+            if (results.p || results.t) {
+              result.push({
+                competitionName,
+                name,
+                P1,
+                P2,
+                TotM,
+                TotB,
+                date: payload.competition.startDateTime,
+                results,
+              });
+            }
+
+            //   console.log({ P1, P2, TotM, TotB });
+            //   console.log(competitionName, "|", name);
+            //   console.log(
+            //     "Дата: ",
+            //     new Date(payload.competition.startDateTime).toLocaleString()
+            //   );
+            //   console.log("\n_____________________\n");
+          });
+        });
+      }
+
+      return result;
+    }
+  </script>
+</html>

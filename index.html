@@ -157,10 +157,6 @@
 
       let sum1, sum2, result1, result2;
 
-      console.log(
-        `Входные параметры: kef1=${kef1}, kef2=${kef2}, target=${target}`
-      );
-
       if (kef1 > kef2) {
         sum1 = (target + 10500) / kef1;
         sum2 = target / kef2;
@@ -180,7 +176,6 @@
         target -= 1;
       }
 
-      console.log(`Начальные суммы: sum1=${sum1}, sum2=${sum2}`);
       if (kef1 > kef2) {
         result1 = Math.round(sum1 * kef1 - 10500);
         result2 = Math.round(sum2 * kef2);
@@ -188,8 +183,6 @@
         result1 = Math.round(sum1 * kef1);
         result2 = Math.round(sum2 * kef2 - 10500);
       }
-
-      console.log(`Конечные суммы: result1=${result1}, result2=${result2}`);
 
       if (result1 < 23250) {
         return false;
@@ -203,6 +196,7 @@
         kef1,
         kef2,
       };
+      return true;
     }
 
     async function getData() {
@@ -254,8 +248,8 @@
             );
 
             const results = {
-              p: calc(P1, P2, "P1", "P2") || null,
-              t: calc(TotM, TotB, "TotM", "TotB") || null,
+              p: calc(P1, P2 || null),
+              t: calc(TotM, TotB || null),
             };
 
             if (results.p || results.t) {

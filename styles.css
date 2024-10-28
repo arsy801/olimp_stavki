@@ -1,46 +1,108 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение */
+  min-height: 100vh; /* Минимальная высота экрана */
+  margin: 0; /* Убираем отступы */
+}
+
+h1 {
+  text-align: center;
+  color: #fff;
+  background-color: #6f42c1; /* Фиолетовый фон */
+  padding: 20px;
+  margin: 0;
+  border-radius: 0 0 0 0; /* Скругление углов заголовка */
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1; /* Контейнер занимает оставшееся пространство */
+  display: flex;
+  justify-content: center; /* Центрирование таблицы по горизонтали */
+  align-items: center; /* Центрирование таблицы по вертикали */
+}
+
 .table {
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  width: 100%;
+  border-collapse: collapse;
   border-radius: 16px;
   overflow: hidden;
+  margin: 0 auto; /* Центрирование таблицы */
 }
 
 .row {
   display: flex;
 
   &:nth-child(odd) {
-    background-color: #bcbcbc;
+    background-color: #f2f2f2; /* Цвет фона для нечетных строк */
   }
+}
+
+.row.header {
+  background-color: #e7e7e7;
+  font-weight: bold;
 }
 
 .row > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex: 1;
-
   text-align: center;
-  border-right: 1px solid black;
-  border-bottom: 1px solid black;
-  height: 100px;
+  border-right: 1px solid #ccc; /* Светло-серая граница */
+  border-bottom: 1px solid #ccc; /* Светло-серая граница снизу */
+  padding: 10px; /* Отступы внутри ячеек */
 }
 
-.row > div:has(div) {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+.row > div:last-child {
+  border-right: none; /* Убираем правую границу для последнего элемента */
+}
 
-  & > div {
-    height: 100%;
-  }
+.row > div > div {
+  background-color: #e6e6e6; /* Цвет фона для вложенных ячеек */
+  margin-bottom: 4px; /* Отступ между вложенными ячейками */
+  padding: 5px; /* Отступы внутри вложенной ячейки */
+  border-radius: 4px; /* Скругленные углы для вложенной ячейки */
+}
 
-  & > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid black;
-    &:last-child {
-      border-bottom: none;
-    }
-  }
+.row > div > div:last-child {
+  margin-bottom: 0; /* Убираем нижний отступ у последней вложенной ячейки */
+}
+
+/* Выравнивание чисел по правому краю */
+.row > div > div {
+  text-align: right; /* Выравнивание по правому краю */
+  font-weight: bold; /* Жирный шрифт для акцента */
+}
+
+/* Общая выравнивание текста по центру для всех ячеек */
+.row > div {
+  align-items: center; /* Центрирование элементов по вертикали */
+}
+
+.footer {
+  background-color: #000; /* Черный цвет фона */
+  color: #fff; /* Цвет текста - белый */
+  padding: 20px; /* Отступы сверху и снизу */
+  text-align: left; /* Выравнивание текста по левому краю */
+  width: 100%; /* Занимает всю ширину */
+  position: fixed; /* Убираем фиксированное положение */
+  bottom: 0; /* Положение нижнего края */
+  padding-left: 20px; /* Отступ слева */
+  box-sizing: border-box; /* Учитываем отступы в ширину */
+}
+
+.footer a {
+  color: #ffffff; /* Цвет ссылок - золотой */
+  text-decoration: none; /* Убираем подчеркивание */
+}
+
+.footer a:hover {
+  text-decoration: underline; /* Подчеркивание при наведении */
 }

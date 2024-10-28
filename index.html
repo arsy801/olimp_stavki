@@ -67,6 +67,11 @@
         <h1>Loading...</h1>
       </div>
     </div>
+    <footer class="footer">
+      <a href="https://t.me/@arsy801"> @arsy801</a>
+      <p>8 (800) 555-35-35</p>
+      <p>Улица Фальконс, дом Три-де-макс, 322</p>
+    </footer>
   </body>
 
   <script>
@@ -99,56 +104,6 @@
         };
       },
     }).mount("#app");
-
-    // кусок хуйни:
-    // function calc(kef1, kef2, left, right, target = 23700) {
-    //   if (kef1 == 0 || kef2 == 0) {
-    //     return;
-    //   }
-    //   if (kef1 > 2 || kef2 > 2) {
-    //     return;
-    //   }
-    //   let sum1, sum2;
-
-    //   if (kef1 > kef2) {
-    //     sum1 = (target / kef1) * kef2;
-    //     sum2 = ((target + 10500) / kef2) * kef1;
-    //   } else {
-    //     sum1 = target / kef1;
-    //     sum2 = (target + 10500) / kef2;
-    //   }
-
-    //   while (sum1 + sum2 > 30500) {
-    //     if (kef1 > kef2) {
-    //       sum1 = Math.round((target / kef1) * kef2);
-    //       sum2 = Math.round(((target + 10500) / kef2) * kef1);
-    //     } else {
-    //       sum1 = Math.round(target / kef1);
-    //       sum2 = Math.round((target + 10500) / kef2);
-    //     }
-
-    //     target -= 1;
-    //   }
-
-    //   const result1 = Math.round(sum1 * kef1);
-    //   const result2 = Math.round(sum2 * kef2 - 10500);
-
-    //   if (result1 < 23250) {
-    //     return false;
-    //   }
-
-    //   return {
-    //     sum1,
-    //     sum2,
-    //     result1,
-    //     result2,
-    //     left,
-    //     right,
-    //     kef1,
-    //     kef2,
-    //   };
-    //   return true;
-    // }
 
     function calc(kef1, kef2, target = 23700) {
       if (kef1 == 0 || kef2 == 0 || kef1 > 2 || kef2 > 2) {

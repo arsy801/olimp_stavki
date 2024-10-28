@@ -101,8 +101,19 @@ h1 {
 .footer a {
   color: #ffffff; /* Цвет ссылок - золотой */
   text-decoration: none; /* Убираем подчеркивание */
+  background-color: #000; /* Черный цвет фона */
+  color: #fff; /* Цвет текста - белый */
+  padding: 15px; /* Отступы сверху и снизу */
+  text-align: left; /* Выравнивание текста по левому краю */
+  width: 100%; /* Занимает всю ширину */
 }
 
 .footer a:hover {
   text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+html,
+body {
+  height: 100%; /* Устанавливаем высоту 100% для html и body */
+  margin: 0; /* Убираем отступы */
 }

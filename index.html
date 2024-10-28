@@ -104,21 +104,28 @@
       if (kef1 == 0 || kef2 == 0) {
         return;
       }
-
       if (kef1 > 2 || kef2 > 2) {
         return;
       }
+      let sum1, sum2;
 
       if (kef1 > kef2) {
-        [kef2, kef1] = [kef1, kef2];
-      }
-
-      let sum1 = target / kef1;
-      let sum2 = (target + 10500) / kef2;
-
-      while (sum1 + sum2 > 30500) {
+        sum1 = (target / kef1) * kef2;
+        sum2 = ((target + 10500) / kef2) * kef1;
+      } else {
         sum1 = target / kef1;
         sum2 = (target + 10500) / kef2;
+      }
+
+      while (sum1 + sum2 > 30500) {
+        if (kef1 > kef2) {
+          sum1 = Math.round((target / kef1) * kef2);
+          sum2 = Math.round(((target + 10500) / kef2) * kef1);
+        } else {
+          sum1 = Math.round(target / kef1);
+          sum2 = Math.round((target + 10500) / kef2);
+        }
+
         target -= 1;
       }
 
@@ -129,24 +136,9 @@
         return false;
       }
 
-      if (kef2 > kef1) {
-        console.log(kef1, kef2);
-
-        return {
-          sum1: Math.round(sum2),
-          sum2: Math.round(sum1),
-          result1: result2,
-          result2: result1,
-          left: right,
-          right: left,
-          kef1: kef2,
-          kef2: kef1,
-        };
-      }
-
       return {
-        sum1: Math.round(sum1),
-        sum2: Math.round(sum2),
+        sum1,
+        sum2,
         result1,
         result2,
         left,
@@ -154,21 +146,6 @@
         kef1,
         kef2,
       };
-
-      console.log(left + " - " + right + ":");
-      console.log(
-        `Ставка на ${left} ${Math.round(sum1)} рублей | Ставка на ${right}: ${
-          Math.round(sum2) - 10500
-        } рублей + 10500 фрибет`
-      );
-      console.log(
-        `Вывод ставки на ${left}: ${Math.round(
-          sum1 * kef1
-        )} рублей | Вывод ставки на ${right}: ${Math.round(
-          sum2 * kef2 - 10500
-        )} рублей`
-      );
-
       return true;
     }
 
@@ -237,14 +214,6 @@
                 results,
               });
             }
-
-            //   console.log({ P1, P2, TotM, TotB });
-            //   console.log(competitionName, "|", name);
-            //   console.log(
-            //     "Дата: ",
-            //     new Date(payload.competition.startDateTime).toLocaleString()
-            //   );
-            //   console.log("\n_____________________\n");
           });
         });
       }

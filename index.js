@@ -8,12 +8,25 @@ function calc(kef1, kef2, left, right, target = 23700) {
     return;
   }
 
-  let sum1 = target / kef1;
-  let sum2 = (target + 10500) / kef2;
+  let sum1, sum2;
 
-  while (sum1 + sum2 > 30500) {
+  if (kef1 > kef2) {
+    sum1 = (target / kef1) * kef2;
+    sum2 = ((target + 10500) / kef2) * kef1;
+  } else {
     sum1 = target / kef1;
     sum2 = (target + 10500) / kef2;
+  }
+
+  while (sum1 + sum2 > 30500) {
+    if (kef1 > kef2) {
+      sum1 = (target / kef1) * kef2;
+      sum2 = ((target + 10500) / kef2) * kef1;
+    } else {
+      sum1 = target / kef1;
+      sum2 = (target + 10500) / kef2;
+    }
+
     target -= 1;
   }
 

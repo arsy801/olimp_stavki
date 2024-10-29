@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -7,6 +13,11 @@ body {
   flex-direction: column; /* Вертикальное расположение */
   min-height: 100vh; /* Минимальная высота экрана */
   margin: 0; /* Убираем отступы */
+}
+
+#app {
+  padding: 20px 0;
+  min-height: calc(100dvh - 80px - 77px);
 }
 
 h1 {
@@ -86,15 +97,17 @@ h1 {
 }
 
 .footer {
+  height: 80px;
   background-color: #000; /* Черный цвет фона */
   color: #fff; /* Цвет текста - белый */
   padding: 15px; /* Отступы сверху и снизу */
   text-align: center; /* Выравнивание текста по левому краю */
   width: 100%; /* Занимает всю ширину */
-  position: fixed; /* Убираем фиксированное положение */
-  bottom: 0; /* Положение нижнего края */
   padding-left: 20px; /* Отступ слева */
   box-sizing: border-box; /* Учитываем отступы в ширину */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer a {
@@ -104,4 +117,30 @@ h1 {
 
 .footer a:hover {
   text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+h2 {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+  text-align: center;
+  color: #000000;
+
+  animation: anim 0.5s linear infinite;
+}
+
+@keyframes anim {
+  0% {
+    transform: rotate(0deg);
+    color: purple;
+  }
+  50% {
+    transform: rotate(180deg);
+    color: yellow;
+  }
+  100% {
+    transform: rotate(360deg);
+    color: blue;
+  }
 }

@@ -7,7 +7,7 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
-  color: #333;
+  color: #ffffff;
   padding: 0;
   display: flex;
   flex-direction: column; /* Вертикальное расположение */
@@ -22,8 +22,8 @@ body {
 
 h1 {
   text-align: center;
-  color: #fff;
-  background-color: #6f42c1; /* Фиолетовый фон */
+  color: #000000;
+  background-color: rgb(255, 200, 0); /* Фиолетовый фон */
   padding: 20px;
   margin: 0;
   border-radius: 0 0 0 0; /* Скругление углов заголовка */
@@ -32,7 +32,7 @@ h1 {
 .container {
   width: 80%;
   margin: auto;
-  background: #fff;
+  background: #3f3f3f;
   border-radius: 16px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -53,20 +53,20 @@ h1 {
   display: flex;
 
   &:nth-child(odd) {
-    background-color: #f2f2f2; /* Цвет фона для нечетных строк */
+    background-color: #333232; /* Цвет фона для нечетных строк */
   }
 }
 
 .row.header {
-  background-color: #e7e7e7;
+  background-color: #333232;
   font-weight: bold;
 }
 
 .row > div {
   flex: 1;
   text-align: center;
-  border-right: 1px solid #ccc; /* Светло-серая граница */
-  border-bottom: 1px solid #ccc; /* Светло-серая граница снизу */
+  border-right: 1px solid rgb(255, 200, 0); /* Светло-серая граница */
+  border-bottom: 1px solid rgb(255, 200, 0); /* Светло-серая граница снизу */
   padding: 10px; /* Отступы внутри ячеек */
 }
 
@@ -75,7 +75,8 @@ h1 {
 }
 
 .row > div > div {
-  background-color: #e6e6e6; /* Цвет фона для вложенных ячеек */
+  color: #000;
+  background-color: rgb(255, 200, 0); /* Цвет фона для вложенных ячеек */
   margin-bottom: 4px; /* Отступ между вложенными ячейками */
   padding: 5px; /* Отступы внутри вложенной ячейки */
   border-radius: 4px; /* Скругленные углы для вложенной ячейки */
@@ -143,4 +144,26 @@ h2 {
     transform: rotate(360deg);
     color: blue;
   }
+}
+
+@keyframes animresult {
+  0% {
+    color: rgb(200, 0, 255);
+  }
+  25% {
+    color: rgb(150, 0, 255);
+  }
+  50% {
+    color: rgb(0, 0, 0);
+  }
+  75% {
+    color: rgb(150, 0, 255);
+  }
+  100% {
+    color: rgb(200, 0, 255);
+  }
+}
+
+.result {
+  animation: animresult 3s linear infinite;
 }

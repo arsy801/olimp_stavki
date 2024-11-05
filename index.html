@@ -38,25 +38,49 @@
             <div>
               <div>{{ item.results.p?.kef1 || "X" }}</div>
               <div>{{ item.results.p?.sum1 || "X" }}</div>
-              <div>{{ item.results.p?.result1 || "X" }}</div>
+              <div
+                :class="{
+                result: item.results.p?.result1
+              }"
+              >
+                {{ item.results.p?.result1 || "X" }}
+              </div>
             </div>
 
             <div>
               <div>{{ item.results.p?.kef2|| "X" }}</div>
               <div>{{ item.results.p?.sum2|| "X" }}</div>
-              <div>{{ item.results.p?.result2|| "X" }}</div>
+              <div
+                :class="{
+                result: item.results.p?.result2
+              }"
+              >
+                {{ item.results.p?.result2|| "X" }}
+              </div>
             </div>
 
             <div>
               <div>{{ item.results.t?.kef1 || "X"}}</div>
               <div>{{ item.results.t?.sum1|| "X" }}</div>
-              <div>{{ item.results.t?.result1|| "X" }}</div>
+              <div
+                :class="{
+                result: item.results.t?.result1
+              }"
+              >
+                {{ item.results.t?.result1|| "X" }}
+              </div>
             </div>
 
             <div>
               <div>{{ item.results.t?.kef2|| "X" }}</div>
               <div>{{ item.results.t?.sum2|| "X" }}</div>
-              <div>{{ item.results.t?.result2 || "X"}}</div>
+              <div
+                :class="{
+                result: item.results.t?.result2
+              }"
+              >
+                {{ item.results.t?.result2 || "X"}}
+              </div>
             </div>
 
             <div>{{ item.date }}</div>

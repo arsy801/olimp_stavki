@@ -20,15 +20,6 @@ body {
   min-height: calc(100dvh - 80px - 77px);
 }
 
-h1 {
-  text-align: center;
-  color: #000000;
-  background-color: rgb(255, 200, 0); /* Фиолетовый фон */
-  padding: 20px;
-  margin: 0;
-  border-radius: 0 0 0 0; /* Скругление углов заголовка */
-}
-
 .container {
   width: 80%;
   margin: auto;
@@ -166,4 +157,20 @@ h2 {
 
 .result {
   animation: animresult 3s linear infinite;
+}
+
+h1 {
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.h1 {
+  text-transform: none;
+  font-style: normal;
+  text-align: center;
+  color: #000000;
+  background-color: rgb(255, 200, 0); /* Фиолетовый фон */
+  padding: 20px;
+  margin: 0;
+  border-radius: 0 0 0 0; /* Скругление углов заголовка */
 }
